@@ -1,20 +1,21 @@
 import express from 'express';
+import faker from 'faker';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.json([
-    {
-      id: 1,
-      name: 'products 1',
-      price: 1000,
-    },
-    {
-      id: 2,
-      name: 'product 2',
-      price: 2000,
-    },
-  ]);
+  const products = [];
+  const { size } = req.query;
+  const limit = size || 10;
+
+  for (let index = 0; index < limit; index++) {
+    products.push({
+      name: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price(), 10),
+      image: faker.image.imageUrl(),
+    });
+  }
+  res.json(products);
 });
 
 router.get('/filter', (req, res) => {
@@ -27,6 +28,14 @@ router.get('/:id', (req, res) => {
     id,
     name: 'product 2',
     price: 2000,
+  });
+});
+
+router.post('/', (req, res) => {
+  const body = req.body;
+  res.json({
+    message: 'product created',
+    data: body,
   });
 });
 

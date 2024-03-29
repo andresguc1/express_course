@@ -1,14 +1,18 @@
 import express from 'express';
-import productsRouter from './products.router.js'; // Make sure to specify the file extension
-import fakerRouter from './fakerProduct.router.js'; // Make sure to specify the file extension
-import categoriesRouter from './categories.router.js'; // Make sure to specify the file extension
-import usersRouter from './users.router.js'; // Make sure to specify the file extension
+import productsRouter from './products.router.js';
+import categoriesRouter from './categories.router.js';
+import usersRouter from './users.router.js';
 
 const routerApi = (app) => {
-  app.use('/products', productsRouter);
-  app.use('/fakerProducts', fakerRouter);
-  app.use('/users', usersRouter);
-  app.use('/categories', categoriesRouter);
-}
+  const router = express.Router();
+
+  // Prefix all routes with '/api/v1'
+  app.use('/api/v1', router);
+
+  // Mount routers with their respective paths
+  router.use('/products', productsRouter);
+  router.use('/users', usersRouter);
+  router.use('/categories', categoriesRouter);
+};
 
 export default routerApi;
