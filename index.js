@@ -11,9 +11,34 @@ app.get('/new-route', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
+  res.json([
+    {
+      id: 1,
+      name: 'products 1',
+      price: 1000,
+    },
+    {
+      id: 2,
+      name: 'product 2',
+      price: 2000,
+    },
+  ]);
+});
+
+app.get('/products/:id', (req, res) => {
+  const { id } = req.params;
   res.json({
-    name: 'product1',
-    price: '100'
+    id,
+    name: 'product 2',
+    price: 2000,
+  });
+});
+
+app.get('/categories/:categoryId/products/:productId', (req, res) => {
+  const { categoryId, productId } = req.params;
+  res.json({
+    categoryId,
+    productId,
   });
 });
 
