@@ -1,5 +1,5 @@
 import express from 'express';
-import faker from 'faker'
+import faker from 'faker';
 
 const app = express();
 const port = 3000;
@@ -29,7 +29,10 @@ app.get('/products', (req, res) => {
 
 app.get('/fakerProducts', (req, res) => {
   const products = [];
-  for (let index = 0; index < 100; index++) {
+  const { size } = req.query;
+  const limit = size || 10;
+
+  for (let index = 0; index < limit; index++) {
     products.push({
       name: faker.commerce.productName(),
       price: parseInt(faker.commerce.price(), 10),
@@ -39,6 +42,10 @@ app.get('/fakerProducts', (req, res) => {
   res.json(products);
 });
 
+app.get('/products/filter', (req, res) => {
+  res.send("I'am a filter")
+})
+
 app.get('/products/:id', (req, res) => {
   const { id } = req.params;
   res.json({
@@ -47,6 +54,8 @@ app.get('/products/:id', (req, res) => {
     price: 2000,
   });
 });
+
+
 
 app.get('/categories/:categoryId/products/:productId', (req, res) => {
   const { categoryId, productId } = req.params;
