@@ -25,11 +25,8 @@ class ProductServices {
   }
 
   findOne(id) {
-    const product = this.products.find((item) => item.id === id);
-    if (!product) {
-      throw new Error('Product not found');
-    }
-    return product;
+    const name = this.getTotal();
+    return this.products.find(item => item.id === id);
   }
 
   update() {}
