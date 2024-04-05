@@ -8,8 +8,17 @@ function errorHandler(err, req, res, next) {
   console.log('errorHandler');
   res.status(500).json({
     message: err.message,
-    stack: err.stack
+    stack: err.stack,
   });
 }
 
-export { logErrors, errorHandler };
+function boomErrorHandler(err, req, res, next) {
+  if (err.isBoom) {
+    const { output } = err;
+    res.status(output.statusCode).json(output.payLoad);
+  } else {
+    next(err);
+  }
+}
+
+export { logErrors, errorHandler, boomErrorHandler };
