@@ -1,6 +1,8 @@
 import faker from 'faker';
 import Boom from '@hapi/boom';
 
+
+
 class ProductServices {
   constructor() {
     this.products = [];
